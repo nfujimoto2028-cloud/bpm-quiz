@@ -8,45 +8,24 @@ export default function Image() {
     (
       <div
         style={{
-          background: '#09090b',
+          background: '#ffffff',
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 16,
         }}
       >
         <div
           style={{
-            fontSize: 48,
-            fontWeight: 700,
-            color: '#10b981',
-            letterSpacing: '0.25em',
-          }}
-        >
-          BPM QUIZ
-        </div>
-        <div
-          style={{
-            fontSize: 200,
+            fontSize: 240,
             fontWeight: 800,
-            color: '#ffffff',
+            color: '#000000',
             lineHeight: 1,
             fontFamily: 'monospace',
           }}
         >
-          128
-        </div>
-        <div
-          style={{
-            fontSize: 32,
-            color: '#52525b',
-            marginTop: 8,
-          }}
-        >
-          Can you find the beat?
+          128Hz
         </div>
       </div>
     ),
