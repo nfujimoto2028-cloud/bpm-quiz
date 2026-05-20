@@ -94,18 +94,24 @@ export default function Home() {
   const handleOK = () => {
     stop()
     setRevealed(true)
-    const diff = bpm - 128
-    const absDiff = Math.abs(diff)
+    const d = bpm - 128
+    const absd = Math.abs(d)
     const grade =
-      absDiff < 0.05 ? '完璧！' :
-      absDiff < 0.3  ? 'ほぼ完璧！' :
-      absDiff < 1.0  ? '惜しい！' :
-      absDiff < 2.0  ? 'もう少し！' :
+      absd < 0.05 ? '完璧！' :
+      absd < 0.3  ? 'ほぼ完璧！' :
+      absd < 1.0  ? '惜しい！' :
+      absd < 2.0  ? 'もう少し！' :
       'まだまだ！'
-    const diffStr = diff > 0 ? `+${diff.toFixed(2)}` : diff.toFixed(2)
-    const url = window.location.href
-    const text = `BPM 128 を目指したら ${bpm.toFixed(2)} BPM でした！（目標との差：${diffStr}）${grade}\n${url}`
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank')
+    const diffStr = d > 0 ? `+${d.toFixed(2)}` : d.toFixed(2)
+    const text = `BPM 128 を目指したら ${bpm.toFixed(2)} BPM でした！（目標との差：${diffStr}）${grade}\n${window.location.href}`
+    const encoded = encodeURIComponent(text)
+
+    const fallback = setTimeout(() => {
+      window.open(`https://twitter.com/intent/tweet?text=${encoded}`, '_blank')
+    }, 600)
+
+    window.addEventListener('blur', () => clearTimeout(fallback), { once: true })
+    window.location.href = `twitter://post?message=${encoded}`
   }
 
   const handleSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,7 +151,7 @@ export default function Home() {
           type="range"
           min={sliderMin}
           max={sliderMax}
-          step={0.01}
+          step={0.5}
           value={bpm}
           onChange={handleSlider}
           className="w-full cursor-pointer accent-emerald-400"
