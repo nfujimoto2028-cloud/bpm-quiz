@@ -94,6 +94,18 @@ export default function Home() {
   const handleOK = () => {
     stop()
     setRevealed(true)
+    const diff = bpm - 128
+    const absDiff = Math.abs(diff)
+    const grade =
+      absDiff < 0.05 ? '完璧！' :
+      absDiff < 0.3  ? 'ほぼ完璧！' :
+      absDiff < 1.0  ? '惜しい！' :
+      absDiff < 2.0  ? 'もう少し！' :
+      'まだまだ！'
+    const diffStr = diff > 0 ? `+${diff.toFixed(2)}` : diff.toFixed(2)
+    const url = window.location.href
+    const text = `BPM 128 を目指したら ${bpm.toFixed(2)} BPM でした！（目標との差：${diffStr}）${grade}\n${url}`
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank')
   }
 
   const handleSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
