@@ -12,9 +12,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "BPM 128 を目指せ！",
-  description: "BPM128のメトロノームに合わせて、128BPMをスライドバーで当てよう！",
+  description: "メトロノームを聴きながらスライドバーで128BPMを当てよう！",
+  openGraph: {
+    title: "BPM 128 を目指せ！",
+    description: "メトロノームを聴きながらスライドバーで128BPMを当てよう！",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BPM 128 を目指せ！",
+    description: "メトロノームを聴きながらスライドバーで128BPMを当てよう！",
+  },
 };
 
 export default function RootLayout({
